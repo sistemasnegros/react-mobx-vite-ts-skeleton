@@ -1,0 +1,26 @@
+/* @import "~antd/dist/antd.css"; */
+.logo {
+  float: left;
+  width: 150px;
+  /* height: 31px; */
+  /* margin: 16px 24px 16px 0; */
+  color: #ffffff;
+  /* background: rgba(255, 255, 255, 0.3); */
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 0 16px !important;
+  }
+
+  .avatar__name {
+    display: none !important;
+  }
+
+  aside:not(.ant-layout-sider-zero-width) {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+}
