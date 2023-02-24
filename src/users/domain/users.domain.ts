@@ -1,14 +1,14 @@
-export enum UsersRolesDomain {
+export enum EUsersRolesDomain {
   STANDARD = "standard",
   ADMIN = "admin",
 }
 
-export interface UsersDomain {
+export interface IUsersDomain {
   id: string;
   email: string;
   password?: string;
   firstName: string;
   lastName: string;
-  role: UsersRolesDomain;
+  role: EUsersRolesDomain;
   fullName?: string;
 }

@@ -9,13 +9,17 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
-    "antd": "^4.23.6",
+    "antd": "^5.2.2",
     "axios": "^0.27.2",
+    "bootstrap-4-grid": "^3.4.0",
+    "inversify": "^6.0.1",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
     "react": "^17.0.2",
+    "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
+    "reflect-metadata": "^0.1.13",
     "styled-components": "^5.3.5",
     "wouter": "^2.8.0-alpha.2"
   },

@@ -8,8 +8,8 @@ import {
 import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu } from "antd";
 import React, { useState } from "react";
-import { Navbar } from "./commons/components/Navbar.component";
-import { Sidebar } from "./commons/components/Sider.component";
+import { Navbar } from "./commons/infrastructure/ui/components/Navbar.component";
+import { Sidebar } from "./commons/infrastructure/ui/components/Sider.component";
 
 import "./App.css";
 
@@ -52,11 +52,6 @@ const App: React.FC = ({ children }) => {
           <Sidebar />
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
           <Content
             className="site-layout-background"
             style={{

@@ -1,13 +1,24 @@
-/* @import "~antd/dist/antd.css"; */
 .logo {
   float: left;
   width: 150px;
-  /* height: 31px; */
-  /* margin: 16px 24px 16px 0; */
   color: #ffffff;
-  /* background: rgba(255, 255, 255, 0.3); */
 }
 
+.logo > span:hover {
+  background: #03a05e;
+  padding: 10px;
+  transition: 0.5s;
+  border-radius: 5px;
+  font-size: medium;
+}
+
+.header {
+  height: unset;
+}
+
+.ant-menu-item-selected {
+  height: 62px;
+}
 @media (max-width: 480px) {
   header {
     padding: 0 16px !important;

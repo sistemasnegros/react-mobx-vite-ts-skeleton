@@ -1,32 +1,38 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import storeRedux from "./commons/redux/store.redux";
-import { authActions } from "./auth/redux/reducers/auth-slice.reducer";
-
-import { AuthServiceIns } from "./auth/services/auth.services";
 import { RoutesApp } from "./router";
+import {
+  globalStore,
+  initialContext,
+  StoreContext,
+} from "./commons/infrastructure/ui/context/store.context";
+
+import "bootstrap-4-grid/css/grid.min.css";
 import "./index.css";
 
-const RootApp = () => {
-  const { auth } = storeRedux.getState();
-  const dispatch = storeRedux.dispatch;
+import { ConfigProvider, theme } from "antd";
+import { observer } from "mobx-react-lite";
 
-  const user = AuthServiceIns.getTokenLocalStore();
-  if (user && !auth.token) {
-    storeRedux.dispatch(authActions.login(user));
-  }
-
+const RootApp = observer(() => {
+  // const { globalStore } = useContextGlobal();
+  console.log("THEME ROOT:", globalStore.theme);
   return (
-    <Provider store={storeRedux}>
-      <RoutesApp />
-    </Provider>
+    <StoreContext.Provider value={initialContext}>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#00b96b",
+          },
+          algorithm:
+            globalStore.theme === "light"
+              ? theme.defaultAlgorithm
+              : theme.darkAlgorithm,
+        }}
+      >
+        <RoutesApp />
+      </ConfigProvider>
+    </StoreContext.Provider>
   );
-};
+});
 
-ReactDOM.render(
-  <React.StrictMode>
-    <RootApp />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+ReactDOM.render(<RootApp />, document.getElementById("root"));
