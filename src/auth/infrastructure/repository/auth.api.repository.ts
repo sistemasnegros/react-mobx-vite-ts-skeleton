@@ -1,23 +1,31 @@
+import { injectable } from "inversify";
 import { HttpAxiosIns } from "../../../commons/infrastructure/http/http-axios";
-import { BaseAPIRepositoriy } from "../../../commons/infrastructure/repository/base.api.repository";
+import { BaseAPIRepository } from "../../../commons/infrastructure/repository/base.api.repository";
+import {
+  IAuthRepositoryDomain,
+  ILoginRequestDomain,
+  ILoginReturnRepositoryDomain,
+} from "../../domain/auth.repository.domain";
 
-class AuthRepository extends BaseAPIRepositoriy {
-  private readonly http: typeof HttpAxiosIns;
+@injectable()
+export class AuthRepository
+  extends BaseAPIRepository
+  implements IAuthRepositoryDomain
+{
+  private readonly http = HttpAxiosIns;
 
-  constructor(http: typeof HttpAxiosIns) {
+  constructor() {
     super();
-    this.http = http;
   }
 
-  async login(body: any) {
-    const API_LOGIN = "/login";
+  async login(body: ILoginRequestDomain) {
+    const API_LOGIN = this.genURL("/auth/login");
     try {
       const res = await this.http.post(API_LOGIN, body);
-      return [res.data, null];
+      return [res.data, null] as ILoginReturnRepositoryDomain;
     } catch (e: any) {
-      return [null, e.response.data];
+      console.log("Error in request: ", e);
+      return [null, e.response.data] as ILoginReturnRepositoryDomain;
     }
   }
 }
-
-export const AuthRepositoryIns = new AuthRepository(HttpAxiosIns);

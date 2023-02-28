@@ -1,10 +1,9 @@
 import { Route, Switch } from "wouter";
 import App from "./App";
 import { LoginView } from "./auth/infrastructure/ui/views/LoginView";
-import { Product } from "./product/infrastructure/ui/components/Product.component";
 import { ProtectedRoute } from "./commons/infrastructure/ui/components/ProtectedRoute.component";
-import { URL_ROUTES } from "./commons/const/url-routes";
 import { ProductsView } from "./product/infrastructure/ui/views/Products.view";
+import { URL_ROUTES } from "./commons/const/url-routes";
 
 export const RoutesApp = () => {
   return (

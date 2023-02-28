@@ -1,6 +1,8 @@
-import { Layout } from "antd";
+import { Layout, Typography } from "antd";
 import { Navbar } from "../../../../commons/infrastructure/ui/components/Navbar.component";
 import { LoginForm } from "../components/LoginForm.component";
+
+const { Title } = Typography;
 
 const { Header, Content } = Layout;
 
@@ -23,7 +25,7 @@ export const LoginView: React.FC<LoginViewInterface> = () => {
             textAlign: "center",
           }}
         >
-          <h1>Login</h1>
+          <Title level={2}>Login</Title>
           <LoginForm />
         </div>
       </Content>

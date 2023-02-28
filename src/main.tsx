@@ -10,27 +10,31 @@ import {
 import "bootstrap-4-grid/css/grid.min.css";
 import "./index.css";
 
-import { ConfigProvider, theme } from "antd";
 import { observer } from "mobx-react-lite";
+import { IntlProvider } from "react-intl";
+
+import { EnLang } from "./commons/infrastructure/ui/intl/lang/en";
+import { EsLang } from "./commons/infrastructure/ui/intl/lang/es";
+import { AntdProvider } from "./commons/infrastructure/ui/antd/Antd.provider";
+
+const supportedMessages = {
+  en: EnLang,
+  es: EsLang,
+};
 
 const RootApp = observer(() => {
-  // const { globalStore } = useContextGlobal();
-  console.log("THEME ROOT:", globalStore.theme);
+  const lang = globalStore.lang;
+
   return (
     <StoreContext.Provider value={initialContext}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "#00b96b",
-          },
-          algorithm:
-            globalStore.theme === "light"
-              ? theme.defaultAlgorithm
-              : theme.darkAlgorithm,
-        }}
+      <IntlProvider
+        messages={supportedMessages[lang] as Record<string, any>}
+        locale={lang}
       >
-        <RoutesApp />
-      </ConfigProvider>
+        <AntdProvider>
+          <RoutesApp />
+        </AntdProvider>
+      </IntlProvider>
     </StoreContext.Provider>
   );
 });

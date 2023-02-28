@@ -7,8 +7,9 @@ export class GlobalStore {
   user: any = null;
   token: null | string = null;
   loading = false;
-  container = container;
   theme = "dark";
+  lang: "en" | "es" = "en";
+  container = container;
 
   private readonly keyToken = "reactJwtToken";
 

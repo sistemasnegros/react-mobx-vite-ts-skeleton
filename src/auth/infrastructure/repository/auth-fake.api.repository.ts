@@ -3,14 +3,14 @@ import { sleep } from "../../../commons/lib/utils";
 import { EUsersRolesDomain } from "../../../users/domain/users.domain";
 import {
   IAuthRepositoryDomain,
-  ILoginRepositoryDomain,
   ILoginRequestDomain,
-} from "../../domain/repository/auth.repository.domain";
+  ILoginReturnRepositoryDomain,
+} from "../../domain/auth.repository.domain";
 
 @injectable()
 export class AuthFakeRepository implements IAuthRepositoryDomain {
   async login(body: ILoginRequestDomain) {
-    return new Promise<ILoginRepositoryDomain>(async (resolve) => {
+    return new Promise<ILoginReturnRepositoryDomain>(async (resolve) => {
       await sleep(2000);
       const data = {
         token: "tokenFake",
@@ -27,5 +27,3 @@ export class AuthFakeRepository implements IAuthRepositoryDomain {
     });
   }
 }
-
-// export const AuthFakeRepositoryIns = new AuthFakeRepository();

@@ -1,11 +1,4 @@
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { Navbar } from "./commons/infrastructure/ui/components/Navbar.component";
