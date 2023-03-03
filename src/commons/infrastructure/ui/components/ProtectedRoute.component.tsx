@@ -6,7 +6,7 @@ import { useContextGlobal } from "../hooks/context-global.hook";
 export const ProtectedRoute = (children: any) => () => {
   const { globalStore } = useContextGlobal();
 
-  return globalStore.authenticated ? (
+  return globalStore.isAuthenticated() ? (
     children
   ) : (
     <Redirect to={URL_ROUTES.LOGIN} />

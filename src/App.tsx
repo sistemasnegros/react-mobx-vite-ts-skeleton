@@ -34,11 +34,11 @@ const App: React.FC = ({ children }) => {
           trigger={null}
           collapsible
           onBreakpoint={(broken) => {
-            console.log(broken);
+            // console.log(broken);
             setCollapsed(broken);
           }}
           onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
+            // console.log(collapsed, type);
           }}
           collapsed={collapsed}
         >

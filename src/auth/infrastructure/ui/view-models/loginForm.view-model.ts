@@ -16,7 +16,12 @@ export class LoginFormViewModel {
 
     const [res, err] = await this.authService.login(values);
 
+    if (err) {
+      globalStore.setErr(err);
+    }
+
     if (!err && res) {
+      globalStore.setSuccessMsg("Welcome!");
       globalStore.setAuthenticate({ user: res.user, token: res.token });
     }
 

@@ -19,13 +19,8 @@ export class AuthRepository
   }
 
   async login(body: ILoginRequestDomain) {
-    const API_LOGIN = this.genURL("/auth/login");
-    try {
-      const res = await this.http.post(API_LOGIN, body);
-      return [res.data, null] as ILoginReturnRepositoryDomain;
-    } catch (e: any) {
-      console.log("Error in request: ", e);
-      return [null, e.response.data] as ILoginReturnRepositoryDomain;
-    }
+    const url = this.genURL("/auth/login");
+    const [res, err] = await this.http.post(url, body);
+    return [res.data, err] as ILoginReturnRepositoryDomain;
   }
 }

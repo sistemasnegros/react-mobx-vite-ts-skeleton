@@ -2,12 +2,12 @@ import "reflect-metadata";
 import { Container } from "inversify";
 import { AuthFakeRepository } from "./auth/infrastructure/repository/auth-fake.api.repository";
 import { LoginFormViewModel } from "./auth/infrastructure/ui/view-models/loginForm.view-model";
-import { ProductService } from "./product/application/product.service";
-import { ProductRepository } from "./product/infrastructure/respository/products.repository";
-import { ProductModelView } from "./product/infrastructure/ui/view-model/product.view-model";
 import { AuthService } from "./auth/application/services/auth.services";
 import { AuthRepository } from "./auth/infrastructure/repository/auth.api.repository";
 import { IAuthRepositoryDomain } from "./auth/domain/auth.repository.domain";
+import { UsersService } from "./users/application/services/users.services";
+import { UsersRepository } from "./users/infrastructure/repository/users.api.repository";
+import { UsersViewModel } from "./users/infrastructure/ui/view-models/users.view-model";
 
 export const container = new Container();
 
@@ -24,18 +24,18 @@ container
   .to(LoginFormViewModel)
   .inSingletonScope();
 
-// products
+// users
 container
-  .bind<ProductService>("ProductService")
-  .to(ProductService)
+  .bind<UsersService>("UsersService")
+  .to(UsersService)
   .inSingletonScope();
 
 container
-  .bind<ProductRepository>("ProductRepository")
-  .to(ProductRepository)
+  .bind<UsersRepository>("UsersRepository")
+  .to(UsersRepository)
   .inSingletonScope();
 
 container
-  .bind<ProductModelView>("ProductModelView")
-  .to(ProductModelView)
+  .bind<UsersViewModel>("UsersViewModel")
+  .to(UsersViewModel)
   .inSingletonScope();

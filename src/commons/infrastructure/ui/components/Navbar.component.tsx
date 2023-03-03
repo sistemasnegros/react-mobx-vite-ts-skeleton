@@ -49,7 +49,7 @@ export const Navbar = observer(() => {
         <div>
           <Avatar icon={<UserOutlined />} />
           <span className="avatar__name" style={{ marginLeft: "10px" }}>
-            {globalStore?.user?.fullName}
+            {globalStore.getFullName()}
           </span>
         </div>
       ),
@@ -71,7 +71,7 @@ export const Navbar = observer(() => {
       mode="horizontal"
       style={{ display: "flex", justifyContent: "flex-end" }}
       items={
-        globalStore.authenticated
+        globalStore.isAuthenticated()
           ? ItemsShared.concat(ItemsAuth).map((e, i) => ({
               ...e,
               key: `navbar-${i}`,

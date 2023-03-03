@@ -1,4 +1,4 @@
-import { LaptopOutlined, HomeOutlined } from "@ant-design/icons";
+import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import { URL_ROUTES } from "../../../const/url-routes";
 import { Link } from "wouter";
@@ -14,8 +14,8 @@ const itemsPublic = [
 
 const itemsPrivate = [
   {
-    label: <Link href={URL_ROUTES.PRODUCTS}>Products</Link>,
-    icon: <LaptopOutlined />,
+    label: <Link href={URL_ROUTES.USERS}>Users</Link>,
+    icon: <UserOutlined />,
   },
 ].map((e, i) => ({
   ...e,
@@ -25,7 +25,7 @@ const itemsPrivate = [
 export const Sidebar = observer(() => {
   const { globalStore } = useContextGlobal();
 
-  const itemsEnables = globalStore.authenticated
+  const itemsEnables = globalStore.isAuthenticated()
     ? itemsPublic.concat(itemsPrivate)
     : itemsPublic;
 

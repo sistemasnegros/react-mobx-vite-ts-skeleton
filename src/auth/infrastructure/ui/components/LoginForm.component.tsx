@@ -1,53 +1,49 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Button, Form, Input } from "antd";
 import { useLocation } from "wouter";
 
-import { openNotificationWithIcon } from "@/commons/infrastructure/ui/components/Notification.component";
 import { observer } from "mobx-react-lite";
 
 import { URL_ROUTES } from "@/commons/const/url-routes";
 import { useContextGlobal } from "../../../../commons/infrastructure/ui/hooks/context-global.hook";
 import { LoginFormViewModel } from "../view-models/loginForm.view-model";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 interface LoginFormInterface {}
 
 export const LoginForm: React.FC<LoginFormInterface> = observer(() => {
   const { globalStore } = useContextGlobal();
-  const { formatMessage } = useIntl();
   const model =
     globalStore.container.get<LoginFormViewModel>("LoginFormViewModel");
 
-  const [location, setLocation] = useLocation();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
-    if (globalStore.authenticated) {
+    if (globalStore.isAuthenticated()) {
       setLocation(URL_ROUTES.HOME);
     }
   }, []);
 
   const onFinish = async (values: any) => {
-    const [res, err]: any = await model.login(values);
+    const [, err]: any = await model.login(values);
 
     if (err) {
-      openNotificationWithIcon({
-        type: "error",
-        title: "Error",
-        description: err,
-      });
       return;
     }
-    setLocation(URL_ROUTES.PRODUCTS);
+    setLocation(URL_ROUTES.HOME);
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
   return (
     <Form
       name="basic"
-      initialValues={{ email: "perrogordo@yopmail.com", password: "123456" }}
+      initialValues={{
+        email: "perrogordo1@yopmail.com",
+        password: "perrogordo",
+      }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
