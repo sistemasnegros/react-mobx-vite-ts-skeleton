@@ -1,12 +1,12 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { globalStore } from "../ui/context/store.context";
 
-interface IResponse {
+export type IResponse<T> = {
   status: number;
-  data: any;
+  data: T;
   message: string;
   code: string;
-}
+};
 
 class HttpAxios {
   private http: AxiosInstance;
@@ -48,12 +48,14 @@ class HttpAxios {
   //   delete this.http.defaults.headers.common["Authorization"];
   // }
 
-  delete(url: string, opts?: any) {
-    return this.run(() => this.http.delete(url, this.generateConfig(opts)));
+  delete<T>(url: string, opts?: any) {
+    return this.run<T>(() => this.http.delete(url, this.generateConfig(opts)));
   }
 
-  post(url: string, body: any, opts?: any) {
-    return this.run(() => this.http.post(url, body, this.generateConfig(opts)));
+  post<T>(url: string, body: any, opts?: any) {
+    return this.run<T>(() =>
+      this.http.post(url, body, this.generateConfig(opts))
+    );
   }
 
   setTokenHeader(token: string) {
@@ -67,15 +69,19 @@ class HttpAxios {
     return config;
   }
 
-  get(url: string, opts?: { params?: any; token?: string }) {
-    return this.run(() => this.http.get(url, this.generateConfig(opts)));
+  get<T>(url: string, opts?: { params?: any; token?: string }) {
+    return this.run<T>(() => this.http.get(url, this.generateConfig(opts)));
   }
 
-  put(url: string, body: any, opts?: { params?: any; token?: string }) {
-    return this.run(() => this.http.put(url, body, this.generateConfig(opts)));
+  put<T>(url: string, body: any, opts?: { params?: any; token?: string }) {
+    return this.run<T>(() =>
+      this.http.put(url, body, this.generateConfig(opts))
+    );
   }
 
-  async run(command: () => Promise<any>): Promise<[IResponse, any | null]> {
+  async run<T>(
+    command: () => Promise<any>
+  ): Promise<[IResponse<T> | null, IResponse<any> | null]> {
     try {
       const res = await command();
 
@@ -92,24 +98,24 @@ class HttpAxios {
       console.log("Error in request: ", err);
 
       if (err.code === "ERR_NETWORK") {
-        const res: IResponse = {
+        const res: IResponse<any> = {
           status: err.response.status,
           data: null,
           code: err.code,
           message: err.message,
         };
 
-        return [res, err];
+        return [null, res];
       }
 
-      const res: IResponse = {
+      const res: IResponse<any> = {
         status: err.response.status,
         data: err.response.data,
         code: err.code,
         message: err.message,
       };
 
-      return [res, err];
+      return [null, res];
     }
   }
 }

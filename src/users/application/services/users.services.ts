@@ -1,10 +1,12 @@
 import { inject, injectable } from "inversify";
 import { generateUUID } from "../../../commons/lib/utils";
-import { UsersRepository } from "../../infrastructure/repository/users.api.repository";
+import { IUsersRepositoryDomain } from "../../domain/users.repository.domain";
 
 @injectable()
 export class UsersService {
-  constructor(@inject("UsersRepository") private repository: UsersRepository) {}
+  constructor(
+    @inject("UsersRepository") private repository: IUsersRepositoryDomain
+  ) {}
 
   async findAll(opts: any) {
     return this.repository.findAll(opts);
@@ -20,7 +22,8 @@ export class UsersService {
   }
 
   async findById(id: string, opts?: any) {
-    return this.repository.findById(id, opts);
+    const [res, err] = await this.repository.findById(id, opts);
+    return [res, err];
   }
 
   async updateById(id: string, body: any, opts?: any) {

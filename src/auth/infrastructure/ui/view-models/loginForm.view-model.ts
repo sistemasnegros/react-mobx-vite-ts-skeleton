@@ -21,7 +21,7 @@ export class LoginFormViewModel {
     }
 
     if (!err && res) {
-      globalStore.setSuccessMsg("Welcome!");
+      globalStore.setSuccessMsg("SUCCESS_LOGIN");
       globalStore.setAuthenticate({ user: res.user, token: res.token });
     }
 

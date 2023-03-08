@@ -2,11 +2,12 @@ import { inject, injectable } from "inversify";
 import { makeAutoObservable } from "mobx";
 import { globalStore } from "../../../../commons/infrastructure/ui/context/store.context";
 import { UsersService } from "../../../application/services/users.services";
+import { IUsersDomain } from "../../../domain/users.domain";
 
 @injectable()
 export class UsersViewModel {
   loading = false;
-  data = [];
+  data: IUsersDomain[] = [];
 
   openForm = false;
   modeEditForm: null | string = null;
@@ -40,8 +41,8 @@ export class UsersViewModel {
 
     this.loading = false;
 
-    if (err) {
-      globalStore.setErr(err);
+    if (!res) {
+      globalStore.setErr(err?.code);
       return [res, err];
     }
 
@@ -56,12 +57,12 @@ export class UsersViewModel {
     const [res, err] = await this.service.findAll({ token: globalStore.token });
     this.loading = false;
 
-    if (err) {
-      globalStore.setErr(err);
+    if (!res) {
+      globalStore.setErr(err.code);
       return [res, err];
     }
 
-    this.data = res.data ?? [];
+    this.data = res.data;
     return [res, err];
   }
 
@@ -73,13 +74,13 @@ export class UsersViewModel {
 
     this.loading = false;
 
-    if (err) {
+    if (!res) {
       globalStore.setErr(err);
       return [res, err];
     }
     this.toggleForm();
-    globalStore.setSuccessMsg("Successfully Created!");
     this.setDefaultDataForm();
+    globalStore.setSuccessMsg("SUCCESS_CREATED");
     await this.findAll();
 
     return [res, err];
@@ -92,12 +93,12 @@ export class UsersViewModel {
     });
     this.loading = false;
 
-    if (err) {
+    if (!res) {
       globalStore.setErr(err);
       return [res, err];
     }
     this.toggleForm();
-    globalStore.setSuccessMsg("Successfully Updated!");
+    globalStore.setSuccessMsg("SUCCESS_UPDATED");
     await this.findAll();
 
     return [res, err];
@@ -107,10 +108,11 @@ export class UsersViewModel {
     const [res, err] = await this.service.deleteById(id, {
       token: globalStore.token,
     });
-    if (err) {
+    if (!res) {
       globalStore.setErr(err);
       return [res, err];
     }
+    globalStore.setSuccessMsg("SUCCESS_DELETED");
     await this.findAll();
   }
 }

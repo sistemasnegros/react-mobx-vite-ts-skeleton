@@ -49,7 +49,9 @@ export const AntdProvider: React.FC = observer(({ children }) => {
     openNotificationWithIcon({
       type: "error",
       title: "Error",
-      description: globalStore.err?.message ?? "",
+      description: formatMessage({
+        id: globalStore.err,
+      }),
     });
     globalStore.setResetErr();
   }, [globalStore.err]);
@@ -62,7 +64,7 @@ export const AntdProvider: React.FC = observer(({ children }) => {
     openNotificationWithIcon({
       type: "success",
       title: "Success",
-      description: globalStore?.successMsg ?? "",
+      description: formatMessage({ id: globalStore.successMsg }),
     });
     globalStore.setResetSuccessMsg();
   }, [globalStore.successMsg]);

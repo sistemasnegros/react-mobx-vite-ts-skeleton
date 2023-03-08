@@ -8,6 +8,7 @@ import { IAuthRepositoryDomain } from "./auth/domain/auth.repository.domain";
 import { UsersService } from "./users/application/services/users.services";
 import { UsersRepository } from "./users/infrastructure/repository/users.api.repository";
 import { UsersViewModel } from "./users/infrastructure/ui/view-models/users.view-model";
+import { IUsersRepositoryDomain } from "./users/domain/users.repository.domain";
 
 export const container = new Container();
 
@@ -31,7 +32,7 @@ container
   .inSingletonScope();
 
 container
-  .bind<UsersRepository>("UsersRepository")
+  .bind<IUsersRepositoryDomain>("UsersRepository")
   .to(UsersRepository)
   .inSingletonScope();
 

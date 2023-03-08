@@ -1,7 +1,7 @@
-export enum EUsersRolesDomain {
-  STANDARD = "standard",
-  ADMIN = "admin",
-}
+// export enum EUsersRolesDomain {
+//   STANDARD = "standard",
+//   ADMIN = "admin",
+// }
 
 export interface IUsersDomain {
   id: string;
@@ -9,6 +9,6 @@ export interface IUsersDomain {
   password?: string;
   firstName: string;
   lastName: string;
-  role: EUsersRolesDomain;
+  role: string;
   fullName?: string;
 }
