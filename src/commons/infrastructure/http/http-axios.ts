@@ -1,11 +1,12 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import { ILangDomain } from "../../domain/int/lang.domain";
 import { globalStore } from "../ui/context/store.context";
 
 export type IResponse<T> = {
   status: number;
   data: T;
   message: string;
-  code: string;
+  code: keyof ILangDomain;
 };
 
 class HttpAxios {
@@ -32,7 +33,7 @@ class HttpAxios {
           error?.response?.data === "invalid token"
         ) {
           globalStore.logout();
-          globalStore.setErr({ message: "Session Expirada!" });
+          globalStore.setErr("ERR_TOKEN");
         }
 
         return Promise.reject(error);
@@ -102,6 +103,17 @@ class HttpAxios {
           status: err.response.status,
           data: null,
           code: err.code,
+          message: err.message,
+        };
+
+        return [null, res];
+      }
+
+      if (err.code === "ERR_BAD_REQUEST") {
+        const res: IResponse<any> = {
+          status: err.response.status,
+          data: err.response.data,
+          code: err.response.data,
           message: err.message,
         };
 

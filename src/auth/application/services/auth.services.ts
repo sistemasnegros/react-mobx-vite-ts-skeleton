@@ -1,5 +1,4 @@
 import { inject, injectable } from "inversify";
-import { IUsersDomain } from "../../../users/domain/users.domain";
 import { IAuthRepositoryDomain } from "../../domain/auth.repository.domain";
 import {
   IAuthService,
@@ -13,6 +12,6 @@ export class AuthService implements IAuthService {
   ) {}
 
   async login(body: ILoginDtoDomain) {
-    return this.repository.login(body);
+    return this.repository.login(body) as any;
   }
 }

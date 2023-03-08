@@ -1,4 +1,5 @@
-import { IReturnRepository } from "../../commons/domain/commons.repository.domain";
+import { IReturnDomain } from "../../commons/domain/commons.repository.domain";
+import { IResponse } from "../../commons/infrastructure/http/http-axios";
 import { IUsersDomain } from "../../users/domain/users.domain";
 
 export interface ILoginDtoDomain {
@@ -6,16 +7,13 @@ export interface ILoginDtoDomain {
   password: string;
 }
 
-// promise login data
 interface ILoginResponseService {
   user: IUsersDomain;
   token: string;
 }
 
-// dto login output
-export type ILoginReturnServiceDomain =
-  IReturnRepository<ILoginResponseService>;
-
 export interface IAuthService {
-  login(body: ILoginDtoDomain): Promise<ILoginReturnServiceDomain>;
+  login(
+    body: ILoginDtoDomain
+  ): Promise<IReturnDomain<IResponse<ILoginResponseService>, IResponse<any>>>;
 }

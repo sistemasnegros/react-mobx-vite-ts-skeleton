@@ -22,8 +22,9 @@ export class UsersService {
   }
 
   async findById(id: string, opts?: any) {
-    const [res, err] = await this.repository.findById(id, opts);
-    return [res, err];
+    return this.repository.findById(id, opts);
+    // const [res, err] = await this.repository.findById(id, opts);
+    // return [res, err];
   }
 
   async updateById(id: string, body: any, opts?: any) {

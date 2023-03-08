@@ -14,4 +14,7 @@ export const EsLang: ILangDomain = {
   SUCCESS_CREATED: "Creación exitosa!",
   SUCCESS_UPDATED: "Actualización exitosa",
   SUCCESS_DELETED: "Eliminación exitosa",
+  ERR_TOKEN: "Sesión Expirada!",
+  ERR_EMAIL_ALREADY_EXISTS: "Email ya existe!",
+  ERR_ID_ALREADY_EXISTS: "Id ya existe!",
 };

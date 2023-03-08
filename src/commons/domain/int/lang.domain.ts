@@ -11,4 +11,7 @@ export interface ILangDomain {
   SUCCESS_DELETED: string;
   ERR_NETWORK: string;
   ERR_NOT_FOUND: string;
+  ERR_TOKEN: string;
+  ERR_EMAIL_ALREADY_EXISTS: string;
+  ERR_ID_ALREADY_EXISTS: string;
 }

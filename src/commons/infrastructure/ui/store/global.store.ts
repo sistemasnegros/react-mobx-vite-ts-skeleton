@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { LocalStoreRepositoryIst } from "../../repository/local-store.repository";
 import { container } from "../../../../bootstrap";
+import { ILangDomain } from "../../../domain/int/lang.domain";
 
 export class GlobalStore {
   user: any = null;
@@ -18,7 +19,7 @@ export class GlobalStore {
       : "";
   }
 
-  setErr(err: any) {
+  setErr(err: keyof ILangDomain) {
     this.err = err;
   }
 
@@ -26,7 +27,7 @@ export class GlobalStore {
     this.err = null;
   }
 
-  setSuccessMsg(msg: string) {
+  setSuccessMsg(msg: keyof ILangDomain) {
     this.successMsg = msg;
   }
 

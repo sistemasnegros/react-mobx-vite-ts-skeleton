@@ -42,7 +42,7 @@ export class UsersViewModel {
     this.loading = false;
 
     if (!res) {
-      globalStore.setErr(err?.code);
+      globalStore.setErr(err.code);
       return [res, err];
     }
 
@@ -75,7 +75,7 @@ export class UsersViewModel {
     this.loading = false;
 
     if (!res) {
-      globalStore.setErr(err);
+      globalStore.setErr(err.code);
       return [res, err];
     }
     this.toggleForm();
@@ -94,7 +94,7 @@ export class UsersViewModel {
     this.loading = false;
 
     if (!res) {
-      globalStore.setErr(err);
+      globalStore.setErr(err.code);
       return [res, err];
     }
     this.toggleForm();
@@ -109,7 +109,7 @@ export class UsersViewModel {
       token: globalStore.token,
     });
     if (!res) {
-      globalStore.setErr(err);
+      globalStore.setErr(err.code);
       return [res, err];
     }
     globalStore.setSuccessMsg("SUCCESS_DELETED");

@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { ArrowClockwise, PencilSquare, Trash } from "react-bootstrap-icons";
 import { useContextGlobal } from "../../../../commons/infrastructure/ui/hooks/context-global.hook";
+import { IUsersDomain } from "../../../domain/users.domain";
 import { UsersForm } from "../components/UsersForm.component";
 import { UsersViewModel } from "../view-models/users.view-model";
 
@@ -15,7 +16,7 @@ export const UsersView = observer(() => {
     {
       title: "Name",
       key: "name",
-      render: (_: any, row: any) => (
+      render: (_: any, row: IUsersDomain) => (
         <>
           {row.firstName} {row.lastName}
         </>

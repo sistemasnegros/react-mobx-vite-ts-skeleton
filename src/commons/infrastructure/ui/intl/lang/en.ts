@@ -13,4 +13,7 @@ export const EnLang: ILangDomain = {
   SUCCESS_CREATED: "Successfully created!",
   SUCCESS_UPDATED: "Successfully updated!",
   SUCCESS_DELETED: "Successfully deleted!",
+  ERR_TOKEN: "Expired session!",
+  ERR_EMAIL_ALREADY_EXISTS: "Email already exists!",
+  ERR_ID_ALREADY_EXISTS: "Id already exists!",
 };
