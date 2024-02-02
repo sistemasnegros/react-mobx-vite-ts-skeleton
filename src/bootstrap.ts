@@ -13,30 +13,15 @@ import { IUsersRepositoryDomain } from "./users/domain/users.repository.domain";
 export const container = new Container();
 
 // auth
-container
-  .bind<IAuthRepositoryDomain>("AuthRepository")
-  .to(AuthRepository)
-  .inSingletonScope();
+container.bind<IAuthRepositoryDomain>("AuthRepository").to(AuthFakeRepository).inSingletonScope();
 
 container.bind<AuthService>("AuthService").to(AuthService).inSingletonScope();
 
-container
-  .bind<LoginFormViewModel>("LoginFormViewModel")
-  .to(LoginFormViewModel)
-  .inSingletonScope();
+container.bind<LoginFormViewModel>("LoginFormViewModel").to(LoginFormViewModel).inSingletonScope();
 
 // users
-container
-  .bind<UsersService>("UsersService")
-  .to(UsersService)
-  .inSingletonScope();
+container.bind<UsersService>("UsersService").to(UsersService).inSingletonScope();
 
-container
-  .bind<IUsersRepositoryDomain>("UsersRepository")
-  .to(UsersRepository)
-  .inSingletonScope();
+container.bind<IUsersRepositoryDomain>("UsersRepository").to(UsersRepository).inSingletonScope();
 
-container
-  .bind<UsersViewModel>("UsersViewModel")
-  .to(UsersViewModel)
-  .inSingletonScope();
+container.bind<UsersViewModel>("UsersViewModel").to(UsersViewModel).inSingletonScope();

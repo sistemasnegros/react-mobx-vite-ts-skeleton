@@ -9,14 +9,12 @@ export interface ILoginRequestDomain {
 }
 
 // promise login data
-interface ILoginReturnDomain {
+export interface ILoginReturnDomain {
   user: IUsersDomain;
   token: string;
 }
 
 // contract service
 export interface IAuthRepositoryDomain {
-  login(
-    loginDto: ILoginRequestDomain
-  ): Promise<IReturnDomain<IResponse<ILoginReturnDomain>, IResponse<any>>>;
+  login(loginDto: ILoginRequestDomain): Promise<IReturnDomain<IResponse<ILoginReturnDomain>, IResponse<any>>>;
 }
