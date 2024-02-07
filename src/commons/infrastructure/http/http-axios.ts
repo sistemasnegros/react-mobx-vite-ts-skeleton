@@ -28,10 +28,7 @@ class HttpAxios {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
 
-        if (
-          error?.response?.data?.message === "Invalid or expired JWT" ||
-          error?.response?.data === "invalid token"
-        ) {
+        if (error?.response?.data?.message === "Invalid or expired JWT" || error?.response?.data === "invalid token") {
           globalStore.logout();
           globalStore.setErr("ERR_TOKEN");
         }
@@ -54,9 +51,7 @@ class HttpAxios {
   }
 
   post<T>(url: string, body: any, opts?: any) {
-    return this.run<T>(() =>
-      this.http.post(url, body, this.generateConfig(opts))
-    );
+    return this.run<T>(() => this.http.post(url, body, this.generateConfig(opts)));
   }
 
   setTokenHeader(token: string) {
@@ -75,14 +70,10 @@ class HttpAxios {
   }
 
   put<T>(url: string, body: any, opts?: { params?: any; token?: string }) {
-    return this.run<T>(() =>
-      this.http.put(url, body, this.generateConfig(opts))
-    );
+    return this.run<T>(() => this.http.put(url, body, this.generateConfig(opts)));
   }
 
-  async run<T>(
-    command: () => Promise<any>
-  ): Promise<[IResponse<T> | null, IResponse<any> | null]> {
+  async run<T>(command: () => Promise<any>): Promise<[IResponse<T> | null, IResponse<any> | null]> {
     try {
       const res = await command();
 

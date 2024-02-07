@@ -5,17 +5,19 @@ import { IUsersDomain } from "../../domain/users.domain";
 import { IUsersRepositoryDomain } from "../../domain/users.repository.domain";
 
 export interface IUsersApiRepository {
-  id: string;
-  email: string;
+  _id: string;
   firstName: string;
   lastName: string;
+  email: string;
+  role: string;
+  verification: Verification;
 }
 
+interface Verification {
+  email: boolean;
+}
 @injectable()
-export class UsersRepository
-  extends BaseAPIRepository
-  implements IUsersRepositoryDomain
-{
+export class UsersRepository extends BaseAPIRepository implements IUsersRepositoryDomain {
   private readonly http = HttpAxiosIns;
 
   constructor() {
@@ -24,7 +26,7 @@ export class UsersRepository
 
   mapperModelToDomain(model: IUsersApiRepository): IUsersDomain {
     return {
-      id: model.id,
+      _id: model._id,
       email: model.email,
       firstName: model.firstName,
       lastName: model.lastName,
@@ -34,29 +36,27 @@ export class UsersRepository
 
   async findAll(opts: any) {
     const URL = this.genURL("/users");
-    const [res, err] = await this.http.get<IUsersApiRepository[]>(URL, opts);
+    const [res, err] = await this.http.get<any>(URL, opts);
     if (!res) {
       return [res, err] as any;
     }
 
-    res.data = res.data.map((e) => this.mapperModelToDomain(e));
-    return [res, err];
+    const data = res.data.data.map((e) => this.mapperModelToDomain(e));
+    return [{ ...res, data }, err];
   }
 
   async create(body: any, opts: any) {
     const URL = this.genURL("/users");
-    const [res, err] = await this.http.post<IUsersApiRepository>(
-      URL,
-      body,
-      opts
-    );
+    const [res, err] = await this.http.post<IUsersApiRepository>(URL, body, opts);
 
     if (!res) {
       return [res, err] as any;
     }
 
-    res.data = this.mapperModelToDomain(res.data);
-    return [res, err];
+    console.log("RES CREATE", res);
+
+    const data = this.mapperModelToDomain(res.data);
+    return [{ ...res, data }, err];
   }
 
   async deleteById(id: string, opts?: any) {
@@ -66,8 +66,8 @@ export class UsersRepository
       return [res, err] as any;
     }
 
-    res.data = this.mapperModelToDomain(res.data);
-    return [res, err];
+    const data = this.mapperModelToDomain(res.data);
+    return [{ ...res, data }, err];
   }
 
   async findById(id: string, opts?: any) {
@@ -78,24 +78,20 @@ export class UsersRepository
       return [res, err] as any;
     }
 
-    res.data = this.mapperModelToDomain(res.data);
+    const data = this.mapperModelToDomain(res.data);
 
-    return [res, err];
+    return [{ ...res, data }, err];
   }
 
   async updateById(id: string, body: any, opts?: any) {
     const URL = this.genURL(`/users/${id}`);
-    const [res, err] = await this.http.put<IUsersApiRepository>(
-      URL,
-      body,
-      opts
-    );
+    const [res, err] = await this.http.put<IUsersApiRepository>(URL, body, opts);
     if (!res) {
       return [res, err] as any;
     }
 
-    res.data = this.mapperModelToDomain(res.data);
+    const data = this.mapperModelToDomain(res.data);
 
-    return [res, err];
+    return [{ ...res, data }, err];
   }
 }

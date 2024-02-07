@@ -1,8 +1,9 @@
 import { inject, injectable } from "inversify";
 import { makeAutoObservable } from "mobx";
 import { globalStore } from "../../../../commons/infrastructure/ui/context/store.context";
-import { UsersService } from "../../../application/services/users.services";
 import { IUsersDomain } from "../../../domain/users.domain";
+import { IUsersRepositoryDomain } from "../../../domain/users.repository.domain";
+import { generateUUID } from "../../../../commons/lib/utils";
 
 @injectable()
 export class UsersViewModel {
@@ -18,7 +19,7 @@ export class UsersViewModel {
     this.initialValues = {};
   }
 
-  constructor(@inject("UsersService") readonly service: UsersService) {
+  constructor(@inject("UsersRepository") private repository: IUsersRepositoryDomain) {
     makeAutoObservable(this);
   }
 
@@ -35,7 +36,7 @@ export class UsersViewModel {
     }
 
     this.loading = true;
-    const [res, err] = await this.service.findById(this.modeEditForm, {
+    const [res, err] = await this.repository.findById(this.modeEditForm, {
       token: globalStore.token,
     });
 
@@ -54,9 +55,10 @@ export class UsersViewModel {
   async findAll() {
     this.loading = true;
 
-    const [res, err] = await this.service.findAll({ token: globalStore.token });
+    const [res, err] = await this.repository.findAll({ token: globalStore.token });
     this.loading = false;
 
+    console.log("RES MODEL VIEW", res);
     if (!res) {
       globalStore.setErr(err.code);
       return [res, err];
@@ -68,9 +70,12 @@ export class UsersViewModel {
 
   async create(body: any) {
     this.loading = true;
-    const [res, err] = await this.service.create(body, {
-      token: globalStore.token,
-    });
+    const [res, err] = await this.repository.create(
+      { ...body, _id: generateUUID() },
+      {
+        token: globalStore.token,
+      }
+    );
 
     this.loading = false;
 
@@ -88,7 +93,7 @@ export class UsersViewModel {
 
   async updateById(id: string, body: any) {
     this.loading = true;
-    const [res, err] = await this.service.updateById(id, body, {
+    const [res, err] = await this.repository.updateById(id, body, {
       token: globalStore.token,
     });
     this.loading = false;
@@ -105,7 +110,7 @@ export class UsersViewModel {
   }
 
   async deleteById(id: string) {
-    const [res, err] = await this.service.deleteById(id, {
+    const [res, err] = await this.repository.deleteById(id, {
       token: globalStore.token,
     });
     if (!res) {
