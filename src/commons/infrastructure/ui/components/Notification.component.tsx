@@ -1,5 +1,6 @@
 import { notification } from "antd";
-import { NotificationPlacement } from "antd/lib/notification";
+import { NotificationPlacement } from "antd/es/notification/interface";
+
 
 type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -8,6 +9,7 @@ interface Options {
   title: string;
   description: string;
   placement?: NotificationPlacement;
+
 }
 
 export const openNotificationWithIcon = ({

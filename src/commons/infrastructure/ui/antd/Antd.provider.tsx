@@ -9,6 +9,7 @@ import { openNotificationWithIcon } from "../components/Notification.component";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { URL_ROUTES } from "../../../const/url-routes";
+import { runInAction } from "mobx";
 
 const supportedLocales = {
   en: en_US,
@@ -57,17 +58,33 @@ export const AntdProvider: React.FC = observer(({ children }) => {
   }, [globalStore.err]);
 
   // Show Messages Success
-  useEffect(() => {
-    if (!globalStore.successMsg) {
-      return;
+  useEffect(() => {   
+
+    if (globalStore.msgList.length === 0){
+      return
     }
+   
     openNotificationWithIcon({
       type: "success",
       title: "Success",
-      description: formatMessage({ id: globalStore.successMsg }),
+      description: formatMessage({ id: globalStore.msgList[0]  }),
+
     });
-    globalStore.setResetSuccessMsg();
-  }, [globalStore.successMsg]);
+
+    runInAction(()=> {
+      globalStore.setResetSuccessMsg()
+    })
+
+    //globalStore.setResetSuccessMsg()
+
+  
+
+  
+
+  
+
+   
+  }, [globalStore.msgList.length]);
 
   return (
     <ConfigProvider

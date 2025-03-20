@@ -11,7 +11,7 @@ import { IUsersRepositoryDomain } from "./users/domain/users.repository.domain";
 export const container = new Container();
 
 // auth
-container.bind<IAuthRepositoryDomain>("AuthRepository").to(AuthRepository).inSingletonScope();
+container.bind<IAuthRepositoryDomain>("AuthRepository").to(AuthFakeRepository).inSingletonScope();
 
 container.bind<LoginFormViewModel>("LoginFormViewModel").to(LoginFormViewModel).inSingletonScope();
 

@@ -34,7 +34,7 @@ class HttpAxios {
         }
 
         return Promise.reject(error);
-      }
+      },
     );
   }
 

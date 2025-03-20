@@ -22,6 +22,8 @@ export class LoginFormViewModel {
 
     if (!err && res) {
       globalStore.setSuccessMsg("SUCCESS_LOGIN");
+      globalStore.setSuccessMsg("SUCCESS_CREATED");
+      globalStore.setSuccessMsg("SUCCESS_DELETED");
 
       globalStore.setAuthenticate({
         user: res.data.user,

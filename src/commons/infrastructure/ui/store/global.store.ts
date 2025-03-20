@@ -13,6 +13,8 @@ export class GlobalStore {
   err: any = null;
   successMsg: any = null;
 
+  msgList: string[] = [];
+
   getFullName() {
     return this.isAuthenticated()
       ? `${this.user.firstName} ${this.user.lastName}`
@@ -27,12 +29,18 @@ export class GlobalStore {
     this.err = null;
   }
 
-  setSuccessMsg(msg: keyof ILangDomain) {
+  setSuccessMsg(msg: keyof ILangDomain) {    
     this.successMsg = msg;
+    //this.successMsgList.splice(0, 0, msg);
+    this.msgList.push(msg)
+    //this.successMsgList = [...this.successMsgList, msg]
   }
 
   setResetSuccessMsg() {
-    this.successMsg = null;
+    this.msgList.shift()
+
+    //this.successMsg = null;
+    //this.successMsgList.pop()
   }
 
   private readonly keyUser = "skeletonReactUserData";
